@@ -9,7 +9,7 @@
   "hosting": [
     {
       "target": "web",
-      "public": "web/out",
+      "public": "web/public",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
