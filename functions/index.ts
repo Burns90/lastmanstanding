@@ -18,14 +18,14 @@ import {
  * Called manually by admin via API
  */
 export const lockRound = functions.https.onCall(
-  async (data: { leagueId: string; roundId: string }, context: any) => {
-    if (!context.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+  async (request) => {
+    if (!request.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
 
-    const { leagueId, roundId } = data;
+    const { leagueId, roundId } = request.data;
 
     // Check admin permission
     const league = await db.collection("leagues").doc(leagueId).get();
-    if (league.data()?.ownerId !== context.auth.uid) {
+    if (league.data()?.ownerId !== request.auth.uid) {
       throw new functions.https.HttpsError("permission-denied", "Only league owner can lock rounds");
     }
 
@@ -113,14 +113,14 @@ export const lockRound = functions.https.onCall(
  * Called manually by admin after lock
  */
 export const validateRound = functions.https.onCall(
-  async (data: { leagueId: string; roundId: string }, context: any) => {
-    if (!context.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+  async (request) => {
+    if (!request.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
 
-    const { leagueId, roundId } = data;
+    const { leagueId, roundId } = request.data;
 
     // Check admin permission
     const league = await db.collection("leagues").doc(leagueId).get();
-    if (league.data()?.ownerId !== context.auth.uid) {
+    if (league.data()?.ownerId !== request.auth.uid) {
       throw new functions.https.HttpsError("permission-denied", "Only league owner can validate rounds");
     }
 
@@ -269,23 +269,14 @@ export const validateRound = functions.https.onCall(
  * Override a selection result (before or after validation)
  */
 export const overrideSelectionResult = functions.https.onCall(
-  async (
-    data: {
-      leagueId: string;
-      roundId: string;
-      selectionId: string;
-      overrideResult: "WIN" | "LOSS" | "DRAW";
-      reason: string;
-    },
-    context: any
-  ) => {
-    if (!context.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+  async (request) => {
+    if (!request.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
 
-    const { leagueId, roundId, selectionId, overrideResult, reason } = data;
+    const { leagueId, roundId, selectionId, overrideResult, reason } = request.data;
 
     // Check admin permission
     const league = await db.collection("leagues").doc(leagueId).get();
-    if (league.data()?.ownerId !== context.auth.uid) {
+    if (league.data()?.ownerId !== request.auth.uid) {
       throw new functions.https.HttpsError("permission-denied", "Only league owner can override results");
     }
 
@@ -319,7 +310,7 @@ export const overrideSelectionResult = functions.https.onCall(
       originalResult: selection.result,
       overrideResult,
       reason,
-      createdBy: context.auth.uid,
+      createdBy: request.auth.uid,
       createdAt: admin.firestore.Timestamp.now(),
     });
 
@@ -346,21 +337,14 @@ export const overrideSelectionResult = functions.https.onCall(
  * Reverse/delete an override
  */
 export const reverseOverride = functions.https.onCall(
-  async (
-    data: {
-      leagueId: string;
-      roundId: string;
-      overrideId: string;
-    },
-    context: any
-  ) => {
-    if (!context.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+  async (request) => {
+    if (!request.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
 
-    const { leagueId, roundId, overrideId } = data;
+    const { leagueId, roundId, overrideId } = request.data;
 
     // Check admin permission
     const league = await db.collection("leagues").doc(leagueId).get();
-    if (league.data()?.ownerId !== context.auth.uid) {
+    if (league.data()?.ownerId !== request.auth.uid) {
       throw new functions.https.HttpsError("permission-denied", "Only league owner can reverse overrides");
     }
 
@@ -403,23 +387,14 @@ export const reverseOverride = functions.https.onCall(
  * Send manual notification from admin to players
  */
 export const sendManualNotification = functions.https.onCall(
-  async (
-    data: {
-      leagueId: string;
-      audience: "ALL_PLAYERS" | "UNPICKED";
-      roundId?: string;
-      title: string;
-      message: string;
-    },
-    context: any
-  ) => {
-    if (!context.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+  async (request) => {
+    if (!request.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
 
-    const { leagueId, audience, roundId, title, message } = data;
+    const { leagueId, audience, roundId, title, message } = request.data;
 
     // Check admin permission
     const league = await db.collection("leagues").doc(leagueId).get();
-    if (league.data()?.ownerId !== context.auth.uid) {
+    if (league.data()?.ownerId !== request.auth.uid) {
       throw new functions.https.HttpsError("permission-denied", "Only league owner can send notifications");
     }
 
@@ -494,21 +469,14 @@ export const sendManualNotification = functions.https.onCall(
  * Manually eliminate a participant
  */
 export const manuallyEliminateParticipant = functions.https.onCall(
-  async (
-    data: {
-      leagueId: string;
-      participantId: string;
-      roundNumber: number;
-    },
-    context: any
-  ) => {
-    if (!context.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+  async (request) => {
+    if (!request.auth) throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
 
-    const { leagueId, participantId, roundNumber } = data;
+    const { leagueId, participantId, roundNumber } = request.data;
 
     // Check admin permission
     const league = await db.collection("leagues").doc(leagueId).get();
-    if (league.data()?.ownerId !== context.auth.uid) {
+    if (league.data()?.ownerId !== request.auth.uid) {
       throw new functions.https.HttpsError("permission-denied", "Only league owner can eliminate players");
     }
 
