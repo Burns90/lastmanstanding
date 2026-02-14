@@ -1,0 +1,10 @@
+{
+  "name": "last-man-standing",
+  "version": "1.0.0",
+  "description": "Football Prediction League App",
+  "private": true,
+  "workspaces": [
+    "web",
+    "functions"
+  ]
+}

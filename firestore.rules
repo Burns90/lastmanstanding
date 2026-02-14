@@ -1,0 +1,77 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow users to read/write their own user document
+    match /users/{userId} {
+      allow read; // Allow read for API endpoints and username checking
+      allow create: if request.auth != null && userId == request.auth.uid; // Allow creating own user document during signup
+      allow update: if request.auth.uid == userId; // Only allow updating your own document
+      allow delete: if request.auth.uid == userId; // Only allow deleting your own document
+    }
+
+    // Leagues - Allow authenticated users to read (search & discovery), owner can manage
+    match /leagues/{leagueId} {
+      allow read: if request.auth != null; // Allow all authenticated users to read leagues (needed for search by code)
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+
+      // Rounds
+      match /rounds/{roundId} {
+        allow read: if request.auth != null;
+        allow write: if request.auth != null; // Client writes only from authenticated users
+
+        // Fixtures
+        match /fixtures/{fixtureId} {
+          allow read: if request.auth != null;
+          allow write: if request.auth != null; // Authenticated users can create from client
+        }
+
+        // Selections
+        match /selections/{selectionId} {
+          allow read: if request.auth != null;
+          allow write: if request.auth != null && request.resource.data.userId == request.auth.uid;
+        }
+
+        // Admin Overrides
+        match /adminOverrides/{overrideId} {
+          allow read: if request.auth != null;
+          allow write: if request.auth != null; // API routes verify admin, already checked
+        }
+      }
+
+      // Participants
+      match /participants/{participantId} {
+        allow read: if request.auth != null;
+        allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+        allow update, delete: if request.auth != null;
+      }
+
+      // Teams - Readable by all authenticated users (needed for fixture management)
+      match /teams/{teamId} {
+        allow read: if request.auth != null; // Any authenticated user can read teams
+        allow write: if request.auth != null; // Authenticated users can create/update (app validates ownership)
+      }
+    }
+
+    // Notifications - Users can read their own, API routes can write
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null; // API routes create notifications
+      allow write: if false;
+    }
+
+    // League Winners - For winner tracking
+    match /leagueWinners/{winnerId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null; // API routes create winners
+    }
+
+    // Competitions - Manually added teams (admin editable, anyone can read via API)
+    match /competitions/{competitionCode} {
+      match /teams/{teamId} {
+        allow read: if true; // Anyone can read teams (needed for API requests)
+        allow write: if request.auth != null; // Authenticated users (ideally admin only via API)
+      }
+    }
+  }
+}

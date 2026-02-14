@@ -1,0 +1,325 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.header h1 {
+  margin-bottom: 0.25rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header p {
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.notificationBell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  padding: 0.625rem 1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--secondary);
+}
+
+.notificationBell:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+  border-color: var(--secondary);
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--danger) 0%, var(--danger-hover) 100%);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 56, 56, 0.3);
+}
+
+.leagueCard {
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.leagueCard h3 {
+  flex-shrink: 0;
+  margin-bottom: 0.75rem;
+}
+
+.leagueCard:hover h3 {
+  color: var(--secondary);
+}
+
+.leagueMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.emptyState {
+  color: var(--text-light);
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .header p {
+    font-size: 0.95rem;
+  }
+
+  .headerActions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .headerActions button,
+  .headerActions a {
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .notificationBell {
+    width: 100%;
+  }
+
+  .hero {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .heroButtons {
+    gap: 0.75rem;
+  }
+
+  .heroButtons button,
+  .heroButtons a {
+    font-size: 0.9rem;
+    padding: 0.65rem 1.25rem;
+    flex: 1;
+  }
+
+  .leagueCard h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .leagueMeta {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .leagueMeta span {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .header {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .headerActions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .headerActions button,
+  .headerActions a {
+    padding: 0.65rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+
+  .notificationBell {
+    min-height: 44px;
+  }
+
+  .badge {
+    top: -6px;
+    right: -6px;
+    min-width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+
+  .hero {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.625rem;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .heroButtons button,
+  .heroButtons a {
+    width: 100%;
+    padding: 0.65rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+
+  .leagueCard h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .leagueCard p {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .leagueMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .leagueMeta span {
+    font-size: 0.75rem;
+  }
+
+  .emptyState {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .headerActions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .headerActions button,
+  .headerActions a {
+    flex: 0 1 auto;
+  }
+}

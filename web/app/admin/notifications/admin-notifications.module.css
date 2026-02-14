@@ -1,0 +1,46 @@
+.container {
+  max-width: 600px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.form button {
+  align-self: flex-start;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .form {
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .form button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .form {
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .form button {
+    min-height: 44px;
+    font-size: 0.85rem;
+  }
+}

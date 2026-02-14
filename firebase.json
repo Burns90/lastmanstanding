@@ -1,0 +1,29 @@
+{
+  "projects": {
+    "default": "last-man-standing-6cc93"
+  },
+  "targets": {},
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": [
+    {
+      "target": "web",
+      "public": "web/out",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": ["node_modules", ".git", "firebase-debug.log", "build/**"]
+    }
+  ]
+}

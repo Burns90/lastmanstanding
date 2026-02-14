@@ -1,0 +1,1115 @@
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--gradient-primary);
+  background-attachment: fixed;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  color: white;
+  padding: 3rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+
+.backButton {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.backButton:hover {
+  color: white;
+  transform: translateX(-4px);
+}
+
+.headerTitle h1 {
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-weight: 800;
+}
+
+.headerTitle p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-light);
+  border-top: 1px solid var(--border);
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Form Container */
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.formWrapper {
+  width: 100%;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+  padding: 4rem;
+  backdrop-filter: blur(10px);
+}
+
+/* Progress Bar */
+.progressBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3.5rem;
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+  border: 2px solid var(--secondary);
+}
+
+.progressStep span:last-child {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressLine {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  margin: 0 1.5rem -2rem 1.5rem;
+  transition: background 0.3s ease;
+}
+
+/* Step Content */
+.stepContent {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stepHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.stepHeader h2 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+  font-weight: 800;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stepHeader p {
+  color: var(--text-light);
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Competition Grid */
+.competitionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.competitionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+.competitionCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.competitionCard:hover::before {
+  left: 100%;
+}
+
+.competitionCard:hover {
+  border-color: var(--secondary);
+  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.25);
+  transform: translateY(-8px);
+}
+
+.competitionCard.selected {
+  border-color: var(--secondary);
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  color: var(--primary-dark);
+  font-weight: 700;
+  box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.competitionCard.selected h3 {
+  color: var(--primary-dark);
+}
+
+.competitionCard.selected p {
+  color: rgba(15, 20, 25, 0.85);
+}
+
+.competitionCard:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.competitionIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+}
+
+.competitionCard h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.competitionCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: var(--text-light);
+}
+
+.competitionCard small {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  display: block;
+  opacity: 0.9;
+  color: var(--secondary) !important;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  padding: 0.875rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: var(--bg-tertiary);
+  color: var(--text);
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: var(--text-lighter);
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15);
+  background-color: var(--bg-secondary);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Team Manager */
+.teamManager {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(0, 212, 255, 0.03) 100%);
+  border: 1.5px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.teamManagerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.teamManagerHeader strong {
+  font-size: 1.1rem;
+  color: var(--text);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.teamCount {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  color: var(--primary-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 0.625rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+}
+
+.teamSearchSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.teamSearchInput {
+  padding: 0.875rem 1.25rem !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 0.75rem !important;
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text) !important;
+  font-size: 0.95rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.teamSearchInput:focus {
+  border-color: var(--secondary) !important;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15) !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+.teamSearchInput::placeholder {
+  color: var(--text-lighter) !important;
+}
+
+.selectedTeamsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.selectedTeamsSection h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.selectedTeamsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.selectedTeamItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  border-radius: 0.75rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+}
+
+.teamInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.teamInfo strong {
+  color: var(--primary-dark);
+}
+
+.teamCode {
+  background: rgba(15, 20, 25, 0.2);
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.removeTeamBtn {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 56, 56, 0.9);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.removeTeamBtn:hover {
+  background: rgba(255, 26, 26, 1);
+  box-shadow: 0 4px 12px rgba(255, 56, 56, 0.3);
+}
+
+.availableTeamsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.availableTeamsSection h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.availableTeamsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.teamButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text);
+  font-family: inherit;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.teamButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.teamButton:hover {
+  border-color: var(--secondary);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 212, 255, 0.02));
+  border-color: var(--secondary);
+}
+
+.teamButton:hover::before {
+  left: 100%;
+}
+
+.teamButtonContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.teamButtonContent strong {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.teamButtonContent span {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.addIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--success) 0%, var(--success-hover) 100%);
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 217, 126, 0.2);
+}
+
+.teamButton:hover .addIcon {
+  transform: scale(1.12);
+  box-shadow: 0 6px 16px rgba(0, 217, 126, 0.4);
+}
+
+.noTeams {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-light);
+  border: 2px dashed var(--border);
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Review Card */
+.reviewCard {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 212, 255, 0.02) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.reviewRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.reviewRow:last-child {
+  border-bottom: none;
+}
+
+.reviewRow strong {
+  color: var(--text);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.reviewRow span {
+  text-align: right;
+  color: var(--secondary);
+  max-width: 50%;
+  word-wrap: break-word;
+  font-weight: 600;
+}
+
+/* Form Actions */
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.backBtn {
+  flex: 1;
+}
+
+.formActions > button {
+  flex: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Buttons */
+.btn-success {
+  background: linear-gradient(135deg, var(--success) 0%, var(--success-hover) 100%);
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(0, 217, 126, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .mainContent {
+    padding: 2rem 1.5rem;
+  }
+
+  .formWrapper {
+    padding: 3rem;
+  }
+
+  .competitionGrid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 2rem 1.5rem;
+  }
+
+  .headerTitle h1 {
+    font-size: 2rem;
+  }
+
+  .backButton {
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .mainContent {
+    padding: 1.5rem 1rem;
+  }
+
+  .formWrapper {
+    padding: 2rem 1.25rem;
+    border-radius: 1rem;
+  }
+
+  .progressBar {
+    margin-bottom: 2.5rem;
+  }
+
+  .progressLine {
+    width: 50px;
+    margin: 0 1rem -2rem 1rem;
+  }
+
+  .stepHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .stepHeader p {
+    font-size: 0.9rem;
+  }
+
+  .competitionGrid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.875rem;
+  }
+
+  .competitionCard {
+    padding: 1rem;
+  }
+
+  .reviewRow {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .reviewRow span {
+    text-align: left;
+    max-width: none;
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .formActions button,
+  .formActions a {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .footer {
+    padding: 1.5rem;
+  }
+
+  .footer p {
+    font-size: 0.85rem;
+  }
+
+  .modalOverlay {
+    padding: 1rem;
+  }
+
+  .modalContent {
+    max-width: 95%;
+    border-radius: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .layoutContainer {
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 1.5rem 1rem;
+  }
+
+  .headerTitle h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .headerTitle p {
+    font-size: 0.85rem;
+  }
+
+  .backButton {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .mainContent {
+    padding: 1rem 0.75rem;
+    max-width: 100%;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .formWrapper {
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .progressBar {
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .progressStep {
+    gap: 0.25rem;
+  }
+
+  .progressStep span:last-child {
+    font-size: 0.7rem;
+  }
+
+  .stepNumber {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .progressLine {
+    width: 30px;
+    margin: 0 0.5rem -2rem 0.5rem;
+    height: 2px;
+  }
+
+  .stepHeader h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stepHeader p {
+    font-size: 0.8rem;
+  }
+
+  .competitionIcon {
+    font-size: 1.75rem;
+  }
+
+  .competitionGrid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.625rem;
+  }
+
+  .competitionCard {
+    padding: 0.75rem;
+    border-radius: 0.625rem;
+  }
+
+  .competitionCard h3 {
+    font-size: 0.85rem;
+  }
+
+  .form,
+  .formSection {
+    gap: 1rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  .reviewRow {
+    gap: 0.5rem;
+  }
+
+  .reviewRow span:first-child {
+    font-weight: 600;
+    min-width: auto;
+  }
+
+  .formActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .formActions button,
+  .formActions a {
+    width: 100%;
+    padding: 0.65rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+
+  .footer {
+    padding: 1rem;
+  }
+
+  .footer p {
+    font-size: 0.8rem;
+  }
+
+  .loadingContainer {
+    font-size: 1rem;
+  }
+
+  .modalOverlay {
+    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 4rem;
+  }
+
+  .modalContent {
+    max-width: 100%;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+  }
+
+  .modalHeader h2 {
+    font-size: 1.25rem;
+  }
+
+  .modalForm input,
+  .modalForm button {
+    min-height: 44px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Landscape mode */
+@media (max-height: 600px) and (orientation: landscape) {
+  .header {
+    padding: 1rem;
+  }
+
+  .headerTitle h1 {
+    font-size: 1.5rem;
+  }
+
+  .mainContent {
+    padding: 1rem;
+  }
+
+  .formWrapper {
+    padding: 1.5rem;
+  }
+
+  .progressBar {
+    margin-bottom: 1.5rem;
+  }
+
+  .stepHeader h2 {
+    font-size: 1.2rem;
+  }
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 1.25rem;
+  color: var(--text-light);
+}
+
+/* Team Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.modalCloseBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.modalCloseBtn:hover {
+  background-color: var(--border);
+  color: var(--text);
+}
+
+.modalBody {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modalTeamsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.modalTeamButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text);
+  font-family: inherit;
+  text-align: left;
+}
+
+.modalTeamButton:hover {
+  border-color: var(--secondary);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 212, 255, 0.02));
+}
+
+.teamModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.teamModalContent strong {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.teamModalContent span {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.modalAddIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+  background: linear-gradient(135deg, var(--success) 0%, var(--success-hover) 100%);
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 217, 126, 0.2);
+}
+
+.modalTeamButton:hover .modalAddIcon {
+  transform: scale(1.15);
+  box-shadow: 0 6px 16px rgba(0, 217, 126, 0.4);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 1rem;
+  }
+
+  .modalHeader {
+    padding: 1.5rem;
+  }
+
+  .modalBody {
+    padding: 1.5rem;
+  }
+
+  .modalFooter {
+    padding: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modalTeamsList {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+}
