@@ -5,7 +5,7 @@ import { AVAILABLE_COMPETITIONS } from '@/lib/competitions';
  * Get available football competitions
  * GET /api/competitions
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     return NextResponse.json({
       success: true,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { db, auth } from '@/lib/firebase';
 import {
@@ -13,12 +13,15 @@ import { League, LeagueParticipant } from '@/../../shared/types';
 import Link from 'next/link';
 import styles from './standings.module.css';
 
+// Tell Next.js this page uses dynamic features
+export const dynamic = 'force-dynamic';
+
 interface ParticipantWithUserInfo extends LeagueParticipant {
   userEmail?: string;
   userName?: string;
 }
 
-export default function StandingsPage() {
+function StandingsContent() {
   const searchParams = useSearchParams();
   const leagueId = searchParams.get('leagueId') || '';
 
@@ -214,5 +217,13 @@ export default function StandingsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function StandingsPage() {
+  return (
+    <Suspense fallback={<div className="loading">Loading standings...</div>}>
+      <StandingsContent />
+    </Suspense>
   );
 }

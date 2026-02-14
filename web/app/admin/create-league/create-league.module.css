@@ -836,17 +836,6 @@
     gap: 1rem;
   }
 
-  input,
-  select,
-  textarea {
-    font-size: 16px;
-    min-height: 44px;
-  }
-
-  label {
-    font-size: 0.9rem;
-  }
-
   .reviewRow {
     gap: 0.5rem;
   }
