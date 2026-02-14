@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { auth } from '@/lib/firebase';
+import { sendManualNotification } from '@/lib/firebaseOperations';
 import styles from './admin-notifications.module.css';
 
 export default function AdminNotificationsPage() {
@@ -30,34 +30,14 @@ export default function AdminNotificationsPage() {
     setSuccess('');
 
     try {
-      const user = auth.currentUser;
-      if (!user) {
-        throw new Error('User not authenticated');
-      }
-
-      const idToken = await user.getIdToken();
-      const response = await fetch('/api/notifications/send-manual', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({
-          leagueId,
-          audience,
-          roundId: audience === 'UNPICKED' ? roundId : undefined,
-          title,
-          message,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to send notification');
-      }
-
-      const result = await response.json();
-      setSuccess(result.message);
+      await sendManualNotification(
+        leagueId,
+        audience,
+        title,
+        message,
+        audience === 'UNPICKED' ? roundId : undefined
+      );
+      setSuccess('Notification sent successfully!');
       setTitle('');
       setMessage('');
     } catch (error: any) {

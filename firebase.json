@@ -2,7 +2,13 @@
   "projects": {
     "default": "last-man-standing-6cc93"
   },
-  "targets": {},
+  "targets": {
+    "last-man-standing-6cc93": {
+      "hosting": {
+        "web": ["last-man-standing-6cc93"]
+      }
+    }
+  },
   "firestore": {
     "rules": "firestore.rules"
   },

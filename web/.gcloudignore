@@ -1,0 +1,12 @@
+# .gcloudignore is used by gcloud to determine which files to ignore when
+# uploading your code for deployment.
+#
+# See `gcloud topic gcloudignore` for more information.
+#
+node_modules/
+.next/
+.git/
+.gitignore
+README.md
+.env.local
+.env.*.local

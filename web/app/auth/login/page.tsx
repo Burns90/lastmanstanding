@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import { lookupUsernameForLogin } from '@/lib/firebaseOperations';
 import styles from './auth.module.css';
 
 export default function LoginPage() {
@@ -36,21 +37,11 @@ export default function LoginPage() {
 
       // If input is a username (no @), look up the email
       if (!usernameOrEmail.includes('@')) {
-        const response = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ usernameOrEmail }),
-        });
-
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Username not found');
+        try {
+          emailToUse = await lookupUsernameForLogin(usernameOrEmail);
+        } catch (err: any) {
+          throw new Error(err.message || 'Username not found');
         }
-
-        const data = await response.json();
-        emailToUse = data.email;
       }
 
       // Sign in with Firebase Auth using the email and password

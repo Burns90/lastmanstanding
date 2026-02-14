@@ -1,9 +1,14 @@
 // Firebase Admin SDK configuration for Cloud Functions and backend
-import * as admin from "firebase-admin";
+import admin from "firebase-admin";
 
-// Initialize Firebase Admin
-if (!admin.apps.length) {
+// Initialize Firebase Admin (automatically done in Cloud Functions environment)
+// but check if explicitly needed
+try {
   admin.initializeApp();
+} catch (err: any) {
+  if (err.code !== "app/duplicate-app") {
+    throw err;
+  }
 }
 
 export const db = admin.firestore();

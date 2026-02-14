@@ -5,6 +5,7 @@ import { auth, db } from '@/lib/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { Competition, Team } from '@/lib/competitions';
 import { useRouter } from 'next/navigation';
+import { getCompetitions } from '@/lib/firebaseOperations';
 import styles from './create-league.module.css';
 
 type FormStep = 'competition' | 'details' | 'review';
@@ -44,10 +45,8 @@ export default function CreateLeaguePage() {
 
   async function loadCompetitions() {
     try {
-      const response = await fetch('/api/competitions');
-      if (!response.ok) throw new Error('Failed to load competitions');
-      const data = await response.json();
-      setCompetitions(data.competitions);
+      const data = await getCompetitions();
+      setCompetitions(data);
     } catch (error) {
       console.error('Error loading competitions:', error);
       alert('Failed to load competitions');

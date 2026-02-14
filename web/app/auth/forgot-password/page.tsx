@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { sendForgotPasswordEmail } from '@/lib/firebaseOperations';
 import styles from '../auth.module.css';
 
 export default function ForgotPasswordPage() {
@@ -17,19 +18,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to send reset email');
-      }
-
+      await sendForgotPasswordEmail(email);
       setSuccess(true);
     } catch (err: any) {
       setError(err.message || 'Failed to send password reset email');

@@ -14,6 +14,12 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 import { League, Round, Selection, LeagueParticipant, Team } from '@/../../shared/types';
+import {
+  lockRound,
+  validateRound,
+  manuallyEliminateParticipant,
+  overrideSelectionResult,
+} from '@/lib/firebaseOperations';
 import styles from './league.module.css';
 
 export default function AdminLeagueDetailPage() {
@@ -205,30 +211,11 @@ export default function AdminLeagueDetailPage() {
     }
 
     try {
-      const user = auth.currentUser;
-      if (!user) {
-        throw new Error('User not authenticated');
-      }
-
-      const idToken = await user.getIdToken();
-      const response = await fetch('/api/rounds/lock', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({ leagueId, roundId: selectedRound.id }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to lock round');
-      }
-
+      await lockRound(leagueId, selectedRound.id);
       await loadData();
       alert('Round locked successfully');
-    } catch (error) {
-      alert(`Error locking round: ${error}`);
+    } catch (error: any) {
+      alert(`Error locking round: ${error.message}`);
     }
   }
 
@@ -239,30 +226,11 @@ export default function AdminLeagueDetailPage() {
     }
 
     try {
-      const user = auth.currentUser;
-      if (!user) {
-        throw new Error('User not authenticated');
-      }
-
-      const idToken = await user.getIdToken();
-      const response = await fetch('/api/rounds/validate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({ leagueId, roundId: selectedRound.id }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to validate round');
-      }
-
+      await validateRound(leagueId, selectedRound.id);
       await loadData();
       alert('Round validated successfully');
-    } catch (error) {
-      alert(`Error validating round: ${error}`);
+    } catch (error: any) {
+      alert(`Error validating round: ${error.message}`);
     }
   }
 
@@ -278,34 +246,11 @@ export default function AdminLeagueDetailPage() {
     }
 
     try {
-      const user = auth.currentUser;
-      if (!user) {
-        throw new Error('User not authenticated');
-      }
-
-      const idToken = await user.getIdToken();
-      const response = await fetch('/api/participants/eliminate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({
-          leagueId,
-          participantId,
-          roundNumber: roundNum,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to eliminate participant');
-      }
-
+      await manuallyEliminateParticipant(leagueId, participantId, roundNum);
       await loadData();
       alert('Participant eliminated successfully');
-    } catch (error) {
-      alert(`Error eliminating participant: ${error}`);
+    } catch (error: any) {
+      alert(`Error eliminating participant: ${error.message}`);
     }
   }
 
@@ -329,32 +274,13 @@ export default function AdminLeagueDetailPage() {
     const reason = prompt('Reason for override (optional):');
 
     try {
-      const user = auth.currentUser;
-      if (!user) {
-        throw new Error('User not authenticated');
-      }
-
-      const idToken = await user.getIdToken();
-      const response = await fetch('/api/selections/override', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({
-          leagueId,
-          roundId: selectedRound.id,
-          selectionId,
-          overrideResult: result.toUpperCase(),
-          reason: reason || 'Admin override',
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to apply override');
-      }
-
+      await overrideSelectionResult(
+        leagueId,
+        selectedRound.id,
+        selectionId,
+        result.toUpperCase() as 'WIN' | 'LOSS' | 'DRAW',
+        reason || 'Admin override'
+      );
       await loadData();
       await loadSelections(selectedRound.id);
       alert('Override applied successfully');

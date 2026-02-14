@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import { db } from "./firebase.js";
-import * as admin from "firebase-admin";
+import admin from "firebase-admin";
 import {
   LeagueParticipant,
   Selection,
